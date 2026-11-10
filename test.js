@@ -1,0 +1,13 @@
+const k=require('./fancy-name-kit.js'), assert=require('assert');
+assert.strictEqual(k.convert('Ali','bold'),'𝐀𝐥𝐢');
+assert.strictEqual(k.convert('Hammad','script'),'ℋ𝒶𝓂𝓂𝒶𝒹');
+assert.strictEqual(k.convert('hello','italic'),'ℎ𝑒𝑙𝑙𝑜');
+assert.strictEqual(k.convert('RZ','doubleStruck'),'ℝℤ');
+assert.strictEqual(k.convert('a1','circled'),'ⓐ①');
+assert.strictEqual(k.convert('A0','fullwidth'),'Ａ０');
+assert.strictEqual(k.convert('Ali ❤','monospace'),'𝙰𝚕𝚒 ❤');
+const r=k.checkLimit(k.convert('Hammad','bold'),'freeFire');
+assert.strictEqual(r.visible,6); assert.strictEqual(r.codeUnits,12); assert.ok(r.fitsVisible&&r.fitsStrict);
+assert.ok(!k.checkLimit(k.convert('Hammad123','bold'),'freeFire').fitsStrict);
+assert.strictEqual(k.convertAll('x').length,k.STYLES.length);
+console.log('all tests passed', k.convertAll('Hammad').map(x=>x.text).join(' '));
